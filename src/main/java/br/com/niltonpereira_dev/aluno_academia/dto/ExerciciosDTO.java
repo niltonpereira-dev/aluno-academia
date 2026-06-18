@@ -2,6 +2,7 @@ package br.com.niltonpereira_dev.aluno_academia.dto;
 
 
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 
@@ -13,8 +14,9 @@ import lombok.*;
 @ToString
 public class ExerciciosDTO {
 
-
+    @NotBlank
     private String nome;
+    @NotBlank
     private String grupoMuscular;
 
 }
