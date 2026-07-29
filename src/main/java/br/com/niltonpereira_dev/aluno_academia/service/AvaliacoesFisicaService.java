@@ -20,7 +20,7 @@ public class AvaliacoesFisicaService {
 
 
     public  void criarAvaliacaoFisica(AvaliacaoFisicaDTO avaliacaoFisicaDTO) throws NotFoundException, BadRequestException {
-        AlunosEntity aluno = alunoRepository.findById(avaliacaoFisicaDTO.getAlunoID())
+        AlunosEntity aluno = alunoRepository.findByFetch(avaliacaoFisicaDTO.getAlunoID())
                 .orElseThrow(() -> new NotFoundException("Aluno não encontrado"));
 
         AvaliacoesFisicaEntity avaliacaoFisica = aluno.getAvaliacoesFisica();
