@@ -52,7 +52,7 @@ public class AlunosService {
         return  avaliacao;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deletarAluno(Integer alunoId) throws NotFoundException {
 
         //Transacao begin
