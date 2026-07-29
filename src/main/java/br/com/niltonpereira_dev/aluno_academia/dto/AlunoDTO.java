@@ -1,10 +1,9 @@
 package br.com.niltonpereira_dev.aluno_academia.dto;
 
 
-
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
 
 @Getter
 @Setter
@@ -12,11 +11,11 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @ToString
-public class ExerciciosDTO {
+public class AlunoDTO {
 
     @NotBlank
     private String nome;
-    @NotBlank
-    private String grupoMuscular;
 
+    @NotBlank
+    private String email;
 }
