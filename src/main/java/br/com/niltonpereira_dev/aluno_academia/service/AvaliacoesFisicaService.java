@@ -5,11 +5,14 @@ import br.com.niltonpereira_dev.aluno_academia.database.model.AvaliacoesFisicaEn
 import br.com.niltonpereira_dev.aluno_academia.database.repository.AlunoRepository;
 import br.com.niltonpereira_dev.aluno_academia.database.repository.AvaliacoesFisicaRepository;
 import br.com.niltonpereira_dev.aluno_academia.dto.AvaliacaoFisicaDTO;
+import br.com.niltonpereira_dev.aluno_academia.dto.AvaliacoesFisicasProjection;
 import br.com.niltonpereira_dev.aluno_academia.exception.BadRequestException;
 import br.com.niltonpereira_dev.aluno_academia.exception.NotFoundException;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +42,9 @@ public class AvaliacoesFisicaService {
         alunoRepository.save(aluno);
     }
 
+    public List<AvaliacoesFisicasProjection> getAllAvaliacoes(){
+        return avaliacoesFisicaRepository.getAllAvaliacoes();
+    }
 
 
 }
