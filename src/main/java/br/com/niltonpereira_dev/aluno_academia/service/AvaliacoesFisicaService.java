@@ -8,8 +8,9 @@ import br.com.niltonpereira_dev.aluno_academia.dto.AvaliacaoFisicaDTO;
 import br.com.niltonpereira_dev.aluno_academia.dto.AvaliacoesFisicasProjection;
 import br.com.niltonpereira_dev.aluno_academia.exception.BadRequestException;
 import br.com.niltonpereira_dev.aluno_academia.exception.NotFoundException;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,14 +22,16 @@ public class AvaliacoesFisicaService {
     private final AlunoRepository alunoRepository;
     private final AvaliacoesFisicaRepository avaliacoesFisicaRepository;
 
+    public void criarAvaliacaoFisica(AvaliacaoFisicaDTO avaliacaoFisicaDTO)
+            throws NotFoundException, BadRequestException {
 
-    public  void criarAvaliacaoFisica(AvaliacaoFisicaDTO avaliacaoFisicaDTO) throws NotFoundException, BadRequestException {
         AlunosEntity aluno = alunoRepository.findByFetch(avaliacaoFisicaDTO.getAlunoID())
                 .orElseThrow(() -> new NotFoundException("Aluno não encontrado"));
 
         AvaliacoesFisicaEntity avaliacaoFisica = aluno.getAvaliacoesFisica();
-        if (avaliacaoFisica != null){
-            throw new BadRequestException("Avaliação fisica já cadastrada para este aluno");
+
+        if (avaliacaoFisica != null) {
+            throw new BadRequestException("Avaliação física já cadastrada para este aluno");
         }
 
         avaliacaoFisica = AvaliacoesFisicaEntity.builder()
@@ -37,14 +40,15 @@ public class AvaliacoesFisicaService {
                 .porcentagemGorduraCorporal(avaliacaoFisicaDTO.getPercentualGorduraCorporal())
                 .build();
 
-
         aluno.setAvaliacoesFisica(avaliacaoFisica);
         alunoRepository.save(aluno);
     }
 
-    public List<AvaliacoesFisicasProjection> getAllAvaliacoes(){
+    public List<AvaliacoesFisicasProjection> getAllAvaliacoes() {
         return avaliacoesFisicaRepository.getAllAvaliacoes();
     }
 
-
+    public Page<AvaliacoesFisicasProjection> getAllAvaliacoesPageable(Integer page, Integer size) {
+        return avaliacoesFisicaRepository.getAllAvaliacoesPage(PageRequest.of(page, size));
+    }
 }
