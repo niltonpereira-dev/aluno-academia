@@ -1,9 +1,9 @@
 package br.com.niltonpereira_dev.aluno_academia.database.repository;
 
 import br.com.niltonpereira_dev.aluno_academia.database.model.AlunosEntity;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
@@ -17,5 +17,5 @@ public interface AlunoRepository extends JpaRepository<AlunosEntity, Integer> {
         LEFT JOIN FETCH a.avaliacoesFisica
         WHERE a.id = :alunoID
         """)
-    Optional<AlunosEntity> findByFetch(@NotNull Integer alunoID);
+    Optional<AlunosEntity> findByFetch(@Param("alunoID") Integer alunoID);
 }
