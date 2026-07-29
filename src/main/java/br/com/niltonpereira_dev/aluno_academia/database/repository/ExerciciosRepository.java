@@ -9,4 +9,6 @@ public interface ExerciciosRepository extends JpaRepository<ExerciciosEntity, In
 
     List<ExerciciosEntity> findAllByGrupoMuscular(String grupoMuscular);
 
+
+
 }
