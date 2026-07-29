@@ -11,6 +11,11 @@ public interface AlunoRepository extends JpaRepository<AlunosEntity, Integer> {
 
     Optional<AlunosEntity> findByEmail(String email);
 
-    @Query(value = "SELECT a FROM AlunosEntity a JOIN FETCH a.avaliacaoFisica")
+    @Query("""
+        SELECT a
+        FROM AlunosEntity a
+        LEFT JOIN FETCH a.avaliacoesFisica
+        WHERE a.id = :alunoID
+        """)
     Optional<AlunosEntity> findByFetch(@NotNull Integer alunoID);
 }
